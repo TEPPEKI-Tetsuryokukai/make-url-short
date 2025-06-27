@@ -1,19 +1,39 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="minimum-scale=1, initial-scale=1, width=device-width"
-    />
-    <title>Invalid URL!</title>
-  </head>
-  <body>
-    <p>Short URL is invalid! (Or you have been spamming the site too much)</p>
-    <p>
-      <a href="https://github.com/nelsontky/gh-pages-url-shortener">
-        Learn more about this URL shortener
-      </a>
-    </p>
-  </body>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>GitHub Issue URL Generator</title>
+  <style>
+    body { font-family: sans-serif; padding: 2em; }
+    input, button { padding: 0.5em; font-size: 1em; width: 100%; margin-top: 1em; }
+    #output { margin-top: 1em; word-break: break-all; }
+  </style>
+</head>
+<body>
+  <h1>GitHub Issue URL 生成ツール</h1>
+  <p>下にURLを入力してください：</p>
+  <input type="text" id="urlInput" placeholder="https://example.com/your-link">
+  <button onclick="generate()">生成してコピー</button>
+  <div id="output"></div>
+
+  <script>
+    function generate() {
+      const input = document.getElementById("urlInput").value.trim();
+      if (!input) {
+        alert("URLを入力してください！");
+        return;
+      }
+
+      const encoded = encodeURIComponent(input);
+      const result = `https://github.com/TEPPEKI-Tetsuryokukai/make-url-short-database/issues/new?title=${encoded}`;
+
+      // 表示とコピー
+      const output = document.getElementById("output");
+      output.innerHTML = `<strong>生成されたURL:</strong><br><input type="text" id="resultUrl" value="${result}" readonly>`;
+      document.getElementById("resultUrl").select();
+      document.execCommand("copy");
+      alert("コピーしました！");
+    }
+  </script>
+</body>
 </html>
